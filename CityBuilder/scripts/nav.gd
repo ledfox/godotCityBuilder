@@ -16,6 +16,21 @@ var player #used as origin point
 var draw_node #node that draws route and cursor
 var pathfinder #node that handles route generation
 
+func new_building_at(name, pos):
+	var building = Sprite.new()
+	var scale = Vector2(0.5, 0.5)
+	var texture = get_tile_texture(name)
+	building.set_texture(texture)
+	building.set_pos(pos)
+	building.set_scale(scale)
+	get_viewport().call_deferred("add_child", building)
+
+func get_tile_texture(name):
+	print(name)
+	var tileset = load("res://resources/land_tiles.tres")
+	var index = tileset.find_tile_by_name(name)
+	print(tileset.tile_get_name(index))
+	return tileset.tile_get_texture(index)
 
 func _ready():
 	
@@ -68,9 +83,6 @@ func _process(delta):
 	#parse cursor target to be drawn
 	draw_node.curtgt = curtgt
 
-
-var bakery_texture = preload("res://resources/buildings/Bakery.png")
-
 #features
 func _input(event):
 
@@ -81,20 +93,18 @@ func _input(event):
 			#if cell is not blocked
 			if grid[curtgt][0] == "empty":
 				#teleport the pawn and cleans drawn path
-				var building = Sprite.new()
-				building.set_texture(bakery_texture)
-				building.set_pos(curtgt)
-				get_viewport().call_deferred("add_child", building)
+				new_building_at("house", curtgt)
 				
 				
 				#player.set_pos(curtgt); draw_node.path = Vector2Array()
 
 	#generate path
 	if event.is_action_pressed("mouse_act_right"):
+		new_building_at("mill", curtgt)
 		#if cursor cell is in the grid
-		if grid.has(curtgt):
-			var path = pathfinder.search(player.get_pos(), curtgt)
-			draw_node.path = path
+	#	if grid.has(curtgt):
+	#		var path = pathfinder.search(player.get_pos(), curtgt)
+	#		draw_node.path = path
 
 	#blocks/unblock path
 	if event.is_action_pressed("mouse_act_middle"):

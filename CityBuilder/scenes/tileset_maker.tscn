@@ -24,31 +24,31 @@ region_rect = Rect2( 128, 0, 32, 32 )
 
 [node name="plant" type="Sprite" parent="."]
 
-transform/pos = Vector2( 362, 189 )
+transform/pos = Vector2( 255.187, 202.505 )
 texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 160, 0, 32, 32 )
 
-[node name="Bakery" type="Sprite" parent="."]
+[node name="bakery" type="Sprite" parent="."]
 
 transform/pos = Vector2( 276.772, 90.6607 )
 texture = ExtResource( 2 )
 
-[node name="Candlemaker" type="Sprite" parent="."]
+[node name="candelmaker" type="Sprite" parent="."]
 
 transform/pos = Vector2( 578.772, 102.661 )
 texture = ExtResource( 3 )
 region = true
 region_rect = Rect2( 15, 0, 32, 64 )
 
-[node name="Mill" type="Sprite" parent="."]
+[node name="mill" type="Sprite" parent="."]
 
 transform/pos = Vector2( 480.772, 149.661 )
 texture = ExtResource( 4 )
 region = true
 region_rect = Rect2( 16, 0, 32, 64 )
 
-[node name="House" type="Sprite" parent="."]
+[node name="house" type="Sprite" parent="."]
 
 transform/pos = Vector2( 612.772, 159.661 )
 texture = ExtResource( 5 )
