@@ -9,17 +9,28 @@ func _ready():
 	# Initialization here
 	pass
 
-func _input(event):
 
+
+func _input(event):
+	pass # replace with function body
 	#teleport player
-	if event.is_action_pressed("mouse_act_left"):
+#	if event.is_action_pressed("mouse_act_left"):
 		#if cursor cell is in the grid
-		if grid.has(curtgt):
-			#if cell is not blocked
-			if grid[curtgt][0] == "empty":
-				#teleport the pawn and cleans drawn path
-				var building = Sprite.new()
-				building.set_texture(bakery_texture)
-				building.set_pos(curtgt)
-				get_viewport().call_deferred("add_child", building)
-				
+#		if grid.has(curtgt):
+#			#if cell is not blocked
+#			if grid[curtgt][0] == "empty":
+#				#teleport the pawn and cleans drawn path
+#				var building = Sprite.new()
+#				building.set_texture(bakery_texture)
+#				building.set_pos(curtgt)
+#				get_viewport().call_deferred("add_child", building)
+
+#balablaskjdfas;fdlkj
+
+func _on_Build_Button_pressed():
+	
+	pass # replace with function body
+
+
+func _on_Build_Window_hide():
+	pass # replace with function body
