@@ -69,7 +69,7 @@ func _process(delta):
 	draw_node.curtgt = curtgt
 
 
-
+var bakery_texture = preload("res://resources/buildings/Bakery.png")
 
 #features
 func _input(event):
@@ -81,7 +81,13 @@ func _input(event):
 			#if cell is not blocked
 			if grid[curtgt][0] == "empty":
 				#teleport the pawn and cleans drawn path
-				player.set_pos(curtgt); draw_node.path = Vector2Array()
+				var building = Sprite.new()
+				building.set_texture(bakery_texture)
+				building.set_pos(curtgt)
+				get_viewport().call_deferred("add_child", building)
+				
+				
+				#player.set_pos(curtgt); draw_node.path = Vector2Array()
 
 	#generate path
 	if event.is_action_pressed("mouse_act_right"):
