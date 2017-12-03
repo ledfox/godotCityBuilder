@@ -28,8 +28,8 @@ func _input(event):
 #balablaskjdfas;fdlkj
 
 func _on_Build_Button_pressed():
-	
-	pass # replace with function body
+	get_node("Build Window").popup()
+	#pass # replace with function body
 
 
 func _on_Build_Window_hide():
