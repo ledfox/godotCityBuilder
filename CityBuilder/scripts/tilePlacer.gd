@@ -44,10 +44,14 @@ func _input(event):
 	
 	if held_object.size() > 0:
 		held_object[0].set_pos(snap_to_tile(get_global_mouse_pos()))
-	if event.is_action_released("mouse_act_right"):
+	if held_object.size() > 0 and event.is_action_released("mouse_act_right"):
 		held_object[0].set_opacity(1)
 		held_object = []
 	
-	pass
+	if event.is_action_pressed("mouse_act_left"):
+		held_object[0].hide()
+		held_object = []
+	
+
 	
 	
