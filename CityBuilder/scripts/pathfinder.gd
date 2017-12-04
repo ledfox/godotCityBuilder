@@ -1,5 +1,5 @@
 # ============================== Path Finder ==============================
-extends Node2D
+#extends Node2D
 
 #This node generates a path between origin and target based on parsed
 #grid, start_point and target_point.

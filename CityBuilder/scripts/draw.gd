@@ -1,4 +1,4 @@
-extends Node2D
+#extends Node2D
 
 #drawing process that illustrates the path and cursor
 
@@ -30,16 +30,16 @@ func _draw():
 	
 	var color = Color(.5,0,.5)
 	var line = 3
-	var p = Vector2(30,15) #cell size
+	var p = Vector2(15, 15) #cell size
 	
 	#drawn cursor cell selector if avaliable
 	if grid.has(curtgt):
-		
+		var temp_cur = curtgt #+ Vector2(16, 16)
 		#circle square
-		draw_line(curtgt+Vector2(0,-p.y), curtgt+Vector2(-p.x,0), color, line)
-		draw_line(curtgt+Vector2(0,-p.y), curtgt+Vector2(p.x,0), color, line)
-		draw_line(curtgt+Vector2(0,p.y), curtgt+Vector2(-p.x,0), color, line)
-		draw_line(curtgt+Vector2(0,p.y), curtgt+Vector2(p.x,0), color, line)
+		draw_line(temp_cur+Vector2(0, 5), temp_cur+Vector2(0, -5), color, line)
+		draw_line(temp_cur+Vector2(5, 0), temp_cur+Vector2(-5,0), color, line)
+		#draw_line(curtgt+Vector2(0,p.y), curtgt+Vector2(p.x,p.y), color, line)
+		#draw_line(curtgt+Vector2(p.x, 0), curtgt+Vector2(p.x, p.y), color, line)
 
 	#draw route
 	if path.size() >= 1:

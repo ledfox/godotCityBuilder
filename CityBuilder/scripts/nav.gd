@@ -1,4 +1,4 @@
-extends TileMap
+#extends TileMap
 
 #this tilemap serves as a navigation tilemap.
 #all tiles are later appended to a dictionary where they can be referenced
@@ -49,7 +49,7 @@ func _ready():
 		
 		#else
 		var tgt = map_to_world(pos,false) #get world pos
-		tgt = Vector2(tgt.x,tgt.y+15) #offset to centralize tile
+		tgt = Vector2(tgt.x,tgt.y)#+15) #offset to centralize tile
 		
 		#grid is dictionary, make data array for each cell
 		grid[tgt] = ["empty", null] #[empty/blocked, instance_refernce]
@@ -76,7 +76,7 @@ func _process(delta):
 	#if tgt_cell is a valid cell (!= -1), sets it to curtgt
 	if get_cell(tgt_cell.x, tgt_cell.y) != -1:
 		#get world position and centralize offset tile 
-		curtgt =  map_to_world(tgt_cell) + Vector2(0,15)
+		curtgt =  map_to_world(tgt_cell) #+ Vector2(0,15)
 	else:
 		curtgt = Vector2() #unable it
 	
