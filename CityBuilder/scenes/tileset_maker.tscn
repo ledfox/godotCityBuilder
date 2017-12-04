@@ -53,14 +53,15 @@ region_rect = Rect2( 16, 0, 32, 64 )
 transform/pos = Vector2( 612.772, 159.661 )
 texture = ExtResource( 5 )
 region = true
-region_rect = Rect2( 4, 4, 32, 32 )
+region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="house_trans" type="Sprite" parent="."]
 
 visibility/opacity = 0.5
-transform/pos = Vector2( 693.803, 158.433 )
+visibility/self_opacity = 0.5
+transform/pos = Vector2( 680.696, 170.386 )
 texture = ExtResource( 5 )
 region = true
-region_rect = Rect2( 4, 4, 32, 32 )
+region_rect = Rect2( 0, 0, 32, 32 )
 
 

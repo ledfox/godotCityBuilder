@@ -15,6 +15,7 @@ func new_building_at(name, pos, alpha=1):
 	building.set_texture(texture)
 	building.set_pos(pos)
 	building.set_scale(scale)
+	building.set_opacity(alpha)
 	get_viewport().call_deferred("add_child", building)
 	return building
 
@@ -39,11 +40,12 @@ func snap_to_tile(pos):
 
 func _input(event):
 	if event.is_action_pressed("mouse_act_right"):
-		held_object.append(new_building_at("house_trans", get_global_mouse_pos()))
+		held_object.append(new_building_at("house", get_global_mouse_pos(), 0.5))
 	
 	if held_object.size() > 0:
 		held_object[0].set_pos(snap_to_tile(get_global_mouse_pos()))
 	if event.is_action_released("mouse_act_right"):
+		held_object[0].set_opacity(1)
 		held_object = []
 	
 	pass
