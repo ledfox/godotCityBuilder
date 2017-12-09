@@ -48,9 +48,9 @@ func _input(event):
 		held_object[0].set_opacity(1)
 		held_object = []
 	
-	if event.is_action_pressed("mouse_act_left"):
-		held_object[0].hide()
-		held_object = []
+	#if event.is_action_pressed("mouse_act_left"):
+	#	held_object[0].hide()
+	#	held_object = []
 	
 
 	

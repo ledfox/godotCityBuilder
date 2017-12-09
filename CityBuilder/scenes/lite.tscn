@@ -34,7 +34,6 @@ __meta__ = {
 
 [node name="Control" type="HBoxContainer" parent="map"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -64,7 +63,6 @@ script/script = ExtResource( 3 )
 
 [node name="Build Window" type="WindowDialog" parent="map/Control/Build Button"]
 
-visibility/visible = false
 hint/tooltip = "Choose something to build from this window."
 focus/ignore_mouse = false
 focus/stop_mouse = true
