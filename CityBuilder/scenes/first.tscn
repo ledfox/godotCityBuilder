@@ -26,7 +26,7 @@ drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 script/script = ExtResource( 1 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="BaseMap" type="TileMap" parent="."]
 
 mode = 0
 tile_set = ExtResource( 2 )
@@ -36,7 +36,7 @@ cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 cell/half_offset = 2
 cell/tile_origin = 0
 cell/y_sort = false
-collision/use_kinematic = false
+collision/use_kinematic = true
 collision/friction = 1.0
 collision/bounce = 0.0
 collision/layers = 1
