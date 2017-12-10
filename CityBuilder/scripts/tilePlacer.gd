@@ -15,13 +15,10 @@ var tileset = load("res://resources/land_tiles.tres")
 var hover = {"object":null, "highlight":null}
 
 func get_tile_at(pos):
-	var tile_pos = snap_to_tile(pos)
-	print(tile_pos)
+	var tile_pos = world_to_map(pos)
 	if grid.has(tile_pos):
-		print(grid[snap_to_tile(pos)])
-		return grid[snap_to_tile(pos)]
+		return grid[tile_pos]
 	else:
-		print("None")
 		return ""
 
 func change_tile_at(pos, newValue):
@@ -29,16 +26,16 @@ func change_tile_at(pos, newValue):
 
 	 
 func find_edges():
+	map_edges["x"]["min"] = 0
+	map_edges["y"]["min"] = 0
 	for pos in grid.keys():
-		if pos.x < map_edges["x"]["min"]:
-			map_edges["x"]["min"] = pos.x 
 		if pos.x > map_edges["x"]["max"]:
 			map_edges["x"]["max"] = pos.x 
-		if pos.y < map_edges["y"]["min"]:
-			map_edges["y"]["min"] = pos.y 
 		if pos.y > map_edges["y"]["max"]:
 			map_edges["y"]["max"] = pos.y
 	get_child(0).set("map_edges", map_edges) 
+	map_edges["x"]["max"] = map_to_world(Vector2(map_edges["x"]["max"], 0)).x
+	map_edges["y"]["max"] = map_to_world(Vector2(0, map_edges["y"]["max"])).y
 	print(map_edges)
 
 func initialize_grid():
@@ -46,8 +43,8 @@ func initialize_grid():
 	#get cell world pos, centralize it and append to grid array
 	for pos in get_used_cells():
 		var tile_name = tileset.tile_get_name(get_cell(pos.x,pos.y))
-		var global_pos = map_to_world(pos + halfTileSize)
-		grid[global_pos] = tile_name
+		grid[pos] = tile_name
+	
 
 func new_building_at(name, pos, alpha=1):
 	var building = Sprite.new()

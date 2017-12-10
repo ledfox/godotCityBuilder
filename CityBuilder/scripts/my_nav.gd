@@ -17,8 +17,8 @@ func _ready():
 	pass
 
 func constrained_pos():
-	var x_offset = 500 
-	var y_offset = 500 
+	var x_offset = 0#500 
+	var y_offset = 0#500 
 	#Get the mouse position, but restict it to the map size
 	var pos = get_global_mouse_pos()
 	
