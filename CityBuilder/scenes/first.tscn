@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
+<<<<<<< HEAD
 [ext_resource path="res://resources/land_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/tilePlacer.gd" type="Script" id=2]
 [ext_resource path="res://scripts/my_nav.gd" type="Script" id=3]
 [ext_resource path="res://scripts/build.gd" type="Script" id=4]
+=======
+[ext_resource path="res://scripts/my_nav.gd" type="Script" id=1]
+[ext_resource path="res://resources/land_tiles.tres" type="TileSet" id=2]
+[ext_resource path="res://scripts/tilePlacer.gd" type="Script" id=3]
+[ext_resource path="res://scripts/money.gd" type="Script" id=4]
+[ext_resource path="res://economy.gd" type="Script" id=5]
+[ext_resource path="res://scripts/build.gd" type="Script" id=6]
+>>>>>>> 304a95e824fd9503ad711b926b08bca6ed587188
 
 [node name="Main" type="Node"]
 
@@ -56,22 +65,6 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="Money Value" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 796.0
-margin/top = 1.0
-margin/right = 819.0
-margin/bottom = 21.0
-text = "0"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
 [node name="Ore Value" type="Label" parent="CanvasLayer"]
 
 focus/ignore_mouse = true
@@ -87,6 +80,23 @@ align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Money Value" type="Label" parent="CanvasLayer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 791.0
+margin/top = 1.0
+margin/right = 814.0
+margin/bottom = 21.0
+text = "0"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 4 )
 
 [node name="Wood Value" type="Label" parent="CanvasLayer"]
 
@@ -119,6 +129,23 @@ align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Timer" type="Label" parent="CanvasLayer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 12.0
+margin/top = 383.0
+margin/right = 35.0
+margin/bottom = 403.0
+text = "0"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 5 )
 
 [node name="Money Label" type="Label" parent="CanvasLayer"]
 
@@ -196,7 +223,7 @@ enabled_focus_mode = 2
 shortcut = null
 text = "Build"
 flat = false
-script/script = ExtResource( 4 )
+script/script = ExtResource( 6 )
 
 [node name="Build Window" type="WindowDialog" parent="CanvasLayer/Build Button"]
 
@@ -212,7 +239,7 @@ margin/right = 51.0
 margin/bottom = 236.0
 popup/exclusive = false
 window/title = "Build Window "
-script/script = ExtResource( 4 )
+script/script = ExtResource( 6 )
 
 [node name="Build Options" type="OptionButton" parent="CanvasLayer/Build Button/Build Window"]
 
@@ -263,7 +290,7 @@ enabled_focus_mode = 2
 shortcut = null
 text = "Cancel"
 flat = false
-script/script = ExtResource( 4 )
+script/script = ExtResource( 6 )
 
 [node name="Build Window Label" type="Label" parent="CanvasLayer/Build Button/Build Window"]
 
