@@ -13,5 +13,5 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	accum += delta
-	set_text(str(accum))
+	accum += delta/2
+	set_text(str(round(accum)))
