@@ -4,14 +4,12 @@ extends Node
 # var a = 2
 # var b = "textvar"
 
-var accum=0
+var PCgold = 0
+var PCfood = 0
+var PCore = 0
+var PCwood = 0
 
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	#pass
-	set_process(true)
-
-func _process(delta):
-	accum += delta
-	set_text(str(accum))
+	pass
