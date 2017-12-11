@@ -17,14 +17,14 @@ var house = {
 	"texture": preload("res://resources/buildings/House3.png"),
 	"offset": Vector2(0, 6),
 	"build_cost": 10,
-	"buildable_tiles": ["grass"]
+	"buildable_tiles": ["grass", "farmland"]
 }
 
 var mill = {
 	"name": "Mill",
 	"texture": preload("res://resources/buildings/Mill.png"),
 	"build_cost": 100,
-	"buildable_tiles": ["grass"]
+	"buildable_tiles": ["farmland"]
 }
 
 
