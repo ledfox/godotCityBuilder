@@ -34,7 +34,7 @@ func constrained_pos():
 	return pos
 
 func _input(event):
-	if event.is_action_pressed("ui_select"):
+	if event.is_action_pressed("activate_panning"):
 		pan_active = not pan_active
 	
 	

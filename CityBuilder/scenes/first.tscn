@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://resources/land_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/tilePlacer.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scripts/money.gd" type="Script" id=6]
 [ext_resource path="res://economy.gd" type="Script" id=7]
 [ext_resource path="res://scripts/build.gd" type="Script" id=8]
+[ext_resource path="res://scripts/buildMenu.gd" type="Script" id=9]
 
 [node name="Main" type="Node"]
 
@@ -237,8 +238,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = -201.0
 margin/top = 78.0
-margin/right = 51.0
-margin/bottom = 236.0
+margin/right = 49.0
+margin/bottom = 378.0
 popup/exclusive = false
 window/title = "Build Window "
 script/script = ExtResource( 8 )
@@ -252,7 +253,7 @@ size_flags/vertical = 2
 margin/left = 18.0
 margin/top = 42.0
 margin/right = 232.0
-margin/bottom = 92.0
+margin/bottom = 142.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -260,6 +261,7 @@ flat = false
 align = 0
 selected = -1
 items = [  ]
+script/script = ExtResource( 9 )
 
 [node name="Accept" type="Button" parent="CanvasLayer/Build Button/Build Window"]
 
