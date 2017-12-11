@@ -6,6 +6,9 @@ extends Node
 
 var accum=0
 
+func add_gold(number):
+	accum = accum + number
+
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -13,5 +16,5 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	accum += delta/2
+	accum += 0.1
 	set_text(str(round(accum)))

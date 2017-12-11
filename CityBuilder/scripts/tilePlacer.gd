@@ -1,7 +1,6 @@
 extends TileMap
 
 const Building = preload("res://scripts/buildings/building.gd") # Relative path
-
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
@@ -14,48 +13,57 @@ var tileset = load("res://resources/land_tiles.tres")
 
 var hover = {"object":null, "highlight":null}
 
+var outOfTheWay = Vector2(-1000, 1000)
+
+var highlights = {"green":null, "red":null}
+onready var selector = get_node("Selector")
+
+func set_up_highlights():
+	for each in ["red", "green"]:
+		var square = Sprite.new()
+		square.set_texture(get_tile_texture(each))
+		square.set_pos(outOfTheWay)
+		square.hide()
+		highlights[each] = square
+	
+	
+
+
 func get_tile_at(pos):
-	var tile_pos = world_to_map(pos)
-	if grid.has(tile_pos):
-		return grid[tile_pos]
+	if grid.has(pos):
+		return grid[pos]["base"]
 	else:
 		return ""
-
-func change_tile_at(pos, newValue):
-	grid[snap_to_tile(pos)] = newValue
-
 	 
 func find_edges():
 	map_edges["x"]["min"] = 0
 	map_edges["y"]["min"] = 0
+	var max_x = 0
+	var max_y = 0 
 	for pos in grid.keys():
-		if pos.x > map_edges["x"]["max"]:
-			map_edges["x"]["max"] = pos.x 
-		if pos.y > map_edges["y"]["max"]:
-			map_edges["y"]["max"] = pos.y
-	get_child(0).set("map_edges", map_edges) 
-	map_edges["x"]["max"] = map_to_world(Vector2(map_edges["x"]["max"], 0)).x
-	map_edges["y"]["max"] = map_to_world(Vector2(0, map_edges["y"]["max"])).y
-	print(map_edges)
+		if pos.x > max_x:
+			max_x = pos.x 
+		if pos.y > max_y:
+			max_y = pos.y
+	var maxVector = map_to_world(Vector2(max_x, max_y))
+	map_edges["x"]["max"] = maxVector.x
+	map_edges["y"]["max"] = maxVector.y
+	get_node("MainCamera").set("map_edges", map_edges) 
+	print("map dimensions: ", map_edges)
 
 func initialize_grid():
 	#get used cells into an array (not real world pos)
 	#get cell world pos, centralize it and append to grid array
 	for pos in get_used_cells():
 		var tile_name = tileset.tile_get_name(get_cell(pos.x,pos.y))
-		grid[pos] = tile_name
-	
+		var global_pos = map_to_world(pos) + halfTileSize
+		grid[global_pos] = {"base": tile_name, "build": null}
 
-func new_building_at(name, pos, alpha=1):
-	var building = Sprite.new()
-	var scale = Vector2(0.5, 0.5)
-	var texture = get_tile_texture(name)
-	building.set_texture(texture)
-	building.set_pos(pos)
-	building.set_scale(scale)
-	building.set_opacity(alpha)
-	get_viewport().call_deferred("add_child", building)
-	return building
+func add_build_object_at(pos, object):
+	grid[pos]["build"] = object
+
+func is_unbuilt(pos):
+	return grid[pos]["build"] == null
 
 func get_tile_texture(name):
 	var index = tileset.find_tile_by_name(name)
@@ -69,6 +77,7 @@ func _ready():
 	set_process_input(true) #also player interactions
 	initialize_grid()
 	find_edges()
+	set_up_highlights()
 
 func _process(delta):
 	pass
@@ -76,25 +85,46 @@ func _process(delta):
 func snap_to_tile(pos):
 	return map_to_world(world_to_map(pos)) + halfTileSize #half a tile size
 
+func get_snapped_mouse_pos():
+	return snap_to_tile(get_global_mouse_pos())
+
+
 func _input(event):
 	if event.is_action_pressed("mouse_act_right"):
 		var held_building = Building.new()
-		held_building.init("house", get_global_mouse_pos())
+		held_building.init("house", get_snapped_mouse_pos())
 		held_building.set_opacity(0.5)
 		get_viewport().add_child(held_building)
 		hover["object"] = held_building
+		get_tile_at(get_snapped_mouse_pos())
+		selector.set_pos(get_snapped_mouse_pos())
+		selector.show()
 	
 	if hover["object"] != null:
-		hover["object"].set_pos(snap_to_tile(get_global_mouse_pos()))
-		get_tile_at(get_global_mouse_pos())
+		hover["object"].set_pos(get_snapped_mouse_pos())
+		selector.set_pos(get_snapped_mouse_pos())
+		selector.be_green(
+			hover["object"].can_build_on(
+			get_tile_at(get_snapped_mouse_pos()))
+			and 
+			is_unbuilt(get_snapped_mouse_pos())
+		)
+		
 	if hover["object"] != null and event.is_action_released("mouse_act_right"):
-		hover["object"].set_opacity(1)
+		if hover["object"].can_build_on(get_tile_at(get_snapped_mouse_pos())) and is_unbuilt(get_snapped_mouse_pos()):
+			hover["object"].build()
+			add_build_object_at(get_snapped_mouse_pos(), hover["object"])
+			
+		else:
+			hover["object"].queue_free() #destory sprite
 		hover["object"] = null
+		selector.hide()
 	
 	if event.is_action_pressed("mouse_act_left"):
 		if hover["object"] != null:
 			hover["object"].hide()
 		hover["object"] = null
+		
 	
 
 	
