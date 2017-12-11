@@ -217,10 +217,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 653.0
-margin/top = 308.0
-margin/right = 753.0
-margin/bottom = 352.0
+margin/left = 775.0
+margin/top = 380.0
+margin/right = 875.0
+margin/bottom = 410.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -230,16 +230,15 @@ script/script = ExtResource( 8 )
 
 [node name="Build Window" type="WindowDialog" parent="CanvasLayer/Build Button"]
 
-visibility/visible = false
 hint/tooltip = "Choose something to build from this window."
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -201.0
-margin/top = 78.0
-margin/right = 49.0
-margin/bottom = 378.0
+margin/left = 678.0
+margin/top = 174.0
+margin/right = 878.0
+margin/bottom = 374.0
 popup/exclusive = false
 window/title = "Build Window "
 script/script = ExtResource( 8 )
@@ -250,10 +249,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 18.0
-margin/top = 42.0
-margin/right = 232.0
-margin/bottom = 142.0
+margin/left = 5.0
+margin/top = 20.0
+margin/right = 195.0
+margin/bottom = 52.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -263,16 +262,31 @@ selected = -1
 items = [  ]
 script/script = ExtResource( 9 )
 
+[node name="Build Window Label" type="Label" parent="CanvasLayer/Build Button/Build Window"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 165.0
+margin/bottom = 14.0
+text = "Select a structure to build"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Accept" type="Button" parent="CanvasLayer/Build Button/Build Window"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 31.0
-margin/top = 117.0
-margin/right = 97.0
-margin/bottom = 137.0
+margin/left = 25.0
+margin/top = 175.0
+margin/right = 81.0
+margin/bottom = 195.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -285,31 +299,16 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 144.0
-margin/top = 117.0
-margin/right = 210.0
-margin/bottom = 137.0
+margin/left = 125.0
+margin/top = 175.0
+margin/right = 181.0
+margin/bottom = 195.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Cancel"
 flat = false
 script/script = ExtResource( 8 )
-
-[node name="Build Window Label" type="Label" parent="CanvasLayer/Build Button/Build Window"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 24.0
-margin/top = 12.0
-margin/right = 228.0
-margin/bottom = 37.0
-text = "Select a structure to build"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [connection signal="pressed" from="CanvasLayer/Build Button" to="CanvasLayer/Build Button" method="_on_Build_Button_pressed"]
 

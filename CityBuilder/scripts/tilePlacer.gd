@@ -1,6 +1,7 @@
 extends TileMap
 
 const Building = preload("res://scripts/buildings/building.gd") # Relative path
+onready var buildOptions = get_tree().get_root().get_node("Main/CanvasLayer/Build Button/Build Window/Build Options")
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
@@ -90,42 +91,46 @@ func get_snapped_mouse_pos():
 
 
 func _input(event):
-#	if event.is_action_pressed("mouse_act_right"):
-#		var held_building = Building.new()
-#		held_building.init("house")
-#		held_building.set_pos(get_snapped_mouse_pos())
-#		held_building.set_opacity(0.5)
-#		get_viewport().add_child(held_building)
-#		hover["object"] = held_building
-#		get_tile_at(get_snapped_mouse_pos())
-#		selector.set_pos(get_snapped_mouse_pos())
-#		selector.show()
-#	
-#	if hover["object"] != null:
-#		hover["object"].set_pos(get_snapped_mouse_pos())
-#		selector.set_pos(get_snapped_mouse_pos())
-#		selector.be_green(
-#			hover["object"].can_build_on(
-#			get_tile_at(get_snapped_mouse_pos()))
-#			and 
-#			is_unbuilt(get_snapped_mouse_pos())
-#		)
-#		
-#	if hover["object"] != null and event.is_action_released("mouse_act_right"):
-#		if hover["object"].can_build_on(get_tile_at(get_snapped_mouse_pos())) and is_unbuilt(get_snapped_mouse_pos()):
-#			hover["object"].build()
-#			add_build_object_at(get_snapped_mouse_pos(), hover["object"])
-#			
-#		else:
-#			hover["object"].queue_free() #destory sprite
-#		hover["object"] = null
-#		selector.hide()
-#	
-#	if event.is_action_pressed("mouse_act_left"):
-#		if hover["object"] != null:
-#			hover["object"].hide()
-#		hover["object"] = null
-	pass
+	var selected = buildOptions.get_selected_name()
+	if selected != null and hover["object"] == null: # event.is_action_pressed("mouse_act_right"):
+		var held_building = Building.new()
+		held_building.init(selected)
+		held_building.set_pos(get_snapped_mouse_pos())
+		held_building.set_opacity(0.5)
+		get_viewport().add_child(held_building)
+		hover["object"] = held_building
+		get_tile_at(get_snapped_mouse_pos())
+		selector.set_pos(get_snapped_mouse_pos())
+		selector.show()
+	
+	if hover["object"] != null:
+		hover["object"].set_pos(get_snapped_mouse_pos())
+		selector.set_pos(get_snapped_mouse_pos())
+		selector.be_green(
+			hover["object"].can_build_on(
+			get_tile_at(get_snapped_mouse_pos()))
+			and 
+			is_unbuilt(get_snapped_mouse_pos())
+		)
+		
+	if hover["object"] != null and event.is_action_pressed("mouse_act_left"):
+		if hover["object"].can_build_on(get_tile_at(get_snapped_mouse_pos())) and is_unbuilt(get_snapped_mouse_pos()):
+			hover["object"].build()
+			add_build_object_at(get_snapped_mouse_pos(), hover["object"])
+			
+		else:
+			hover["object"].queue_free() #destory sprite
+		hover["object"] = null
+		selector.hide()
+		buildOptions.clear_selection()
+	
+	if event.is_action_pressed("mouse_act_right"):
+		if hover["object"] != null:
+			hover["object"].hide()
+		hover["object"] = null
+		selector.hide()
+		buildOptions.clear_selection()
+	
 	
 
 	

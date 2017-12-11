@@ -13,7 +13,7 @@ var build_cost = 10
 var config = {}
 
 var house = {
-	"name": "house",
+	"name": "House",
 	"texture": preload("res://resources/buildings/House3.png"),
 	"offset": Vector2(0, 6),
 	"build_cost": 10,
@@ -21,14 +21,14 @@ var house = {
 }
 
 var mill = {
-	"name": "mill",
+	"name": "Mill",
 	"texture": preload("res://resources/buildings/Mill.png"),
 	"build_cost": 100,
 	"buildable_tiles": ["grass"]
 }
 
 
-var all_configs = [house]
+var all_configs = [house, mill]
 var config_lkp = compile_config_lkp()
 
 var buildable_tiles = ["grass"]
