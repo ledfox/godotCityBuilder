@@ -54,7 +54,7 @@ script/script = ExtResource( 3 )
 
 [node name="Selector" type="Sprite" parent="BaseMap"]
 
-visibility/opacity = 0.25
+visibility/opacity = 0.5
 transform/pos = Vector2( -100, -107 )
 texture = ExtResource( 4 )
 region = true

@@ -92,7 +92,8 @@ func get_snapped_mouse_pos():
 func _input(event):
 	if event.is_action_pressed("mouse_act_right"):
 		var held_building = Building.new()
-		held_building.init("house", get_snapped_mouse_pos())
+		held_building.init("house")
+		held_building.set_pos(get_snapped_mouse_pos())
 		held_building.set_opacity(0.5)
 		get_viewport().add_child(held_building)
 		hover["object"] = held_building
