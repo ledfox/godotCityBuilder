@@ -96,13 +96,19 @@ func _input(event):
 	if selected != null and hover["object"] == null: # event.is_action_pressed("mouse_act_right"):
 		var held_building = Building.new()
 		held_building.init(selected)
-		held_building.set_pos(get_snapped_mouse_pos())
-		held_building.set_opacity(0.5)
 		get_viewport().add_child(held_building)
-		hover["object"] = held_building
-		get_tile_at(get_snapped_mouse_pos())
-		selector.set_pos(get_snapped_mouse_pos())
-		selector.show()
+		if held_building.can_afford_to_build():
+			held_building.set_pos(get_snapped_mouse_pos())
+			held_building.set_opacity(0.5)
+			
+			hover["object"] = held_building
+			get_tile_at(get_snapped_mouse_pos())
+			selector.set_pos(get_snapped_mouse_pos())
+			selector.show()
+		else:
+			print("You don't have the resources to build " + held_building.conf["name"])
+			print(held_building.conf["resource_req"])
+			buildOptions.clear_selection()
 	
 	if hover["object"] != null:
 		hover["object"].set_pos(get_snapped_mouse_pos())

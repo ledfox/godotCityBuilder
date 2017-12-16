@@ -18,6 +18,13 @@ func set_conf(name):
 func can_build_on(tile_name):
 	return tile_name in conf["buildable_tiles"]
 	
+func can_afford_to_build():
+	var eco = economy.get_values()
+	for key in conf["resource_req"].keys():
+		if eco[key] < conf["resource_req"][key]:
+			return false
+	return true
+
 func init(name):
 	set_conf(name)
 	set_texture(conf["texture"])
