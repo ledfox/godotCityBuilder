@@ -5,6 +5,7 @@ onready var buildOptions = get_tree().get_root().get_node("Main/CanvasLayer/Buil
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+
 var grid = {}
 var map_edges = {"x":{"max":0, "min":0}, "y":{"max":0, "min":0}}
 var color = Color(.5,0,.5)

@@ -22,6 +22,7 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	print("selector ready")
+	set_centered(true)
 	set_process(true) #player interactions
 	
 	

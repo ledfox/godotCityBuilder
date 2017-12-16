@@ -5,21 +5,20 @@
 [ext_resource path="res://scripts/my_nav.gd" type="Script" id=3]
 [ext_resource path="res://resources/green.png" type="Texture" id=4]
 [ext_resource path="res://scripts/selector.gd" type="Script" id=5]
-[ext_resource path="res://scripts/money.gd" type="Script" id=6]
-[ext_resource path="res://economy.gd" type="Script" id=7]
-[ext_resource path="res://scripts/build.gd" type="Script" id=8]
-[ext_resource path="res://scripts/buildMenu.gd" type="Script" id=9]
+[ext_resource path="res://scripts/build.gd" type="Script" id=6]
+[ext_resource path="res://scripts/buildMenu.gd" type="Script" id=7]
+[ext_resource path="res://resources/buildings/money.png" type="Texture" id=8]
+[ext_resource path="res://scripts/economyMenu.gd" type="Script" id=9]
 
 [node name="Main" type="Node"]
 
 [node name="BaseMap" type="TileMap" parent="."]
 
-transform/pos = Vector2( 0, 7 )
 mode = 0
 tile_set = ExtResource( 1 )
 cell/size = Vector2( 32, 32 )
 cell/quadrant_size = 16
-cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/custom_transform = Matrix32( 0, 0, 0, 1, 0, 0 )
 cell/half_offset = 2
 cell/tile_origin = 0
 cell/y_sort = false
@@ -56,7 +55,7 @@ script/script = ExtResource( 3 )
 [node name="Selector" type="Sprite" parent="BaseMap"]
 
 visibility/opacity = 0.5
-transform/pos = Vector2( -100, -107 )
+z/relative = false
 texture = ExtResource( 4 )
 region = true
 region_rect = Rect2( 0, 0, 32, 32 )
@@ -69,150 +68,9 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="Ore Value" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 720.0
-margin/top = 1.0
-margin/right = 743.0
-margin/bottom = 21.0
-text = "0"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Money Value" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 791.0
-margin/top = 1.0
-margin/right = 814.0
-margin/bottom = 21.0
-text = "0"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-script/script = ExtResource( 6 )
-
-[node name="Wood Value" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 631.0
-margin/top = 1.0
-margin/right = 654.0
-margin/bottom = 21.0
-text = "0"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Food Value" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 528.0
-margin/top = 2.0
-margin/right = 551.0
-margin/bottom = 22.0
-text = "0"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Timer" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 12.0
-margin/top = 383.0
-margin/right = 35.0
-margin/bottom = 403.0
-text = "0"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-script/script = ExtResource( 7 )
-
-[node name="Money Label" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 823.0
-margin/top = 1.0
-margin/right = 871.0
-margin/bottom = 21.0
-text = "Money"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Ore Label" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 747.0
-margin/top = 1.0
-margin/right = 776.0
-margin/bottom = 21.0
-text = "Ore"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Wood Label" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 659.0
-margin/top = 1.0
-margin/right = 696.0
-margin/bottom = 21.0
-text = "Wood"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Food Label" type="Label" parent="CanvasLayer"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 555.0
-margin/top = 2.0
-margin/right = 592.0
-margin/bottom = 22.0
-text = "Food"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
 [node name="Build Button" type="Button" parent="CanvasLayer"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -226,7 +84,7 @@ enabled_focus_mode = 2
 shortcut = null
 text = "Build"
 flat = false
-script/script = ExtResource( 8 )
+script/script = ExtResource( 6 )
 
 [node name="Build Window" type="WindowDialog" parent="CanvasLayer/Build Button"]
 
@@ -242,7 +100,7 @@ margin/right = 878.0
 margin/bottom = 374.0
 popup/exclusive = false
 window/title = "Build Window "
-script/script = ExtResource( 8 )
+script/script = ExtResource( 6 )
 
 [node name="Build Options" type="OptionButton" parent="CanvasLayer/Build Button/Build Window"]
 
@@ -261,7 +119,7 @@ flat = false
 align = 0
 selected = -1
 items = [  ]
-script/script = ExtResource( 9 )
+script/script = ExtResource( 7 )
 
 [node name="Build Window Label" type="Label" parent="CanvasLayer/Build Button/Build Window"]
 
@@ -309,7 +167,120 @@ enabled_focus_mode = 2
 shortcut = null
 text = "Cancel"
 flat = false
-script/script = ExtResource( 8 )
+script/script = ExtResource( 6 )
+
+[node name="EconomyButton" type="Button" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 12.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 8 )
+flat = false
+script/script = ExtResource( 9 )
+
+[node name="Pop" type="Label" parent="CanvasLayer/EconomyButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 54.0
+margin/top = 9.0
+margin/right = 137.0
+margin/bottom = 29.0
+text = "Population: x"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Food" type="Label" parent="CanvasLayer/EconomyButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 167.0
+margin/top = 10.0
+margin/right = 213.0
+margin/bottom = 30.0
+text = "Food: x"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Wood" type="Label" parent="CanvasLayer/EconomyButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 243.0
+margin/top = 9.0
+margin/right = 295.0
+margin/bottom = 29.0
+text = "Wood: x"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Ore" type="Label" parent="CanvasLayer/EconomyButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 356.0
+margin/top = 9.0
+margin/right = 395.0
+margin/bottom = 29.0
+text = "Ore: x"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Money" type="Label" parent="CanvasLayer/EconomyButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 456.0
+margin/top = 9.0
+margin/right = 514.0
+margin/bottom = 29.0
+text = "Money: x"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Timer" type="Label" parent="CanvasLayer/EconomyButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 12.0
+margin/top = 383.0
+margin/right = 35.0
+margin/bottom = 403.0
+text = "0"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="pressed" from="CanvasLayer/Build Button" to="CanvasLayer/Build Button" method="_on_Build_Button_pressed"]
 

@@ -1,68 +1,41 @@
 extends Sprite
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
 var is_road_adj = false
-var tileset = load("res://resources/land_tiles.tres")
-onready var money = get_tree().get_root().get_node("Main/CanvasLayer/Money Value")
+onready var economy = get_tree().get_root().get_node("Main/CanvasLayer/EconomyButton")
 var name
 var build_cost = 10
 
-var config = {}
+var conf_file = ConfigFile.new()
+var err = conf_file.load("res://resources/buildingVars.cfg")
+var conf = {}
 
-var house = {
-	"name": "House",
-	"texture": preload("res://resources/buildings/House3.png"),
-	"offset": Vector2(0, 6),
-	"build_cost": 10,
-	"buildable_tiles": ["grass", "farmland"]
-}
+func set_conf(name):
+	for key in conf_file.get_section_keys(name):
+		conf[key] = conf_file.get_value(name, key)
+	conf["name"] = name
+	conf["texture"] = load(conf["image_file"])
 
-var mill = {
-	"name": "Mill",
-	"texture": preload("res://resources/buildings/Mill.png"),
-	"build_cost": 100,
-	"buildable_tiles": ["farmland"]
-}
-
-
-var all_configs = [house, mill]
-var config_lkp = compile_config_lkp()
-
-var buildable_tiles = ["grass"]
-
-func compile_config_lkp():
-	var lkp = {}
-	for each in all_configs:
-		lkp[each["name"]] = each
-	return lkp
-	
-	
-	
 func can_build_on(tile_name):
-	return tile_name in config["buildable_tiles"]
+	return tile_name in conf["buildable_tiles"]
 	
 func init(name):
-	config = config_lkp[name]
-	set_texture(config["texture"])
-	if "offset" in config.keys():
-		set_offset(config["offset"])
-	if "scale" in config.keys():
-		set_scale(config["scale"])
+	set_conf(name)
+	set_texture(conf["texture"])
+	if "offset" in conf.keys():
+		set_offset(Vector2(conf["offset"]["x"], conf["offset"]["y"]))
 	
 func build():
 	set_opacity(1)
-	money.add_gold(-config["build_cost"])
+	for key in conf["produces"]:
+		economy.add_value(key, conf["produces"][key])
+	economy.add_value("money", -conf["build_cost"])
 	
-
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
+	set_centered(true)
 	set_process(true)
 
-	
 func _process(delta):
 	pass
 	
