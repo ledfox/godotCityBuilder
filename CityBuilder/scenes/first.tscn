@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://resources/land_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/tilePlacer.gd" type="Script" id=2]
 [ext_resource path="res://scripts/my_nav.gd" type="Script" id=3]
 [ext_resource path="res://resources/green.png" type="Texture" id=4]
 [ext_resource path="res://scripts/selector.gd" type="Script" id=5]
-[ext_resource path="res://scripts/build.gd" type="Script" id=6]
-[ext_resource path="res://scripts/buildMenu.gd" type="Script" id=7]
-[ext_resource path="res://resources/buildings/money.png" type="Texture" id=8]
-[ext_resource path="res://scripts/economyMenu.gd" type="Script" id=9]
+[ext_resource path="res://scripts/buildCanvas.gd" type="Script" id=6]
+[ext_resource path="res://scripts/build.gd" type="Script" id=7]
+[ext_resource path="res://scripts/buildMenu.gd" type="Script" id=8]
+[ext_resource path="res://resources/buildings/money.png" type="Texture" id=9]
+[ext_resource path="res://scripts/economyMenu.gd" type="Script" id=10]
 
 [node name="Main" type="Node"]
 
@@ -37,7 +38,7 @@ transform/pos = Vector2( 800, 320 )
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 0.5, 0.5 )
+zoom = Vector2( 1, 1 )
 limit/left = -25000
 limit/top = -25000
 limit/right = 25000
@@ -67,10 +68,10 @@ layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+script/script = ExtResource( 6 )
 
 [node name="Build Button" type="Button" parent="CanvasLayer"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -84,7 +85,7 @@ enabled_focus_mode = 2
 shortcut = null
 text = "Build"
 flat = false
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="Build Window" type="WindowDialog" parent="CanvasLayer/Build Button"]
 
@@ -100,7 +101,7 @@ margin/right = 878.0
 margin/bottom = 374.0
 popup/exclusive = false
 window/title = "Build Window "
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="Build Options" type="OptionButton" parent="CanvasLayer/Build Button/Build Window"]
 
@@ -119,7 +120,7 @@ flat = false
 align = 0
 selected = -1
 items = [  ]
-script/script = ExtResource( 7 )
+script/script = ExtResource( 8 )
 
 [node name="Build Window Label" type="Label" parent="CanvasLayer/Build Button/Build Window"]
 
@@ -167,7 +168,7 @@ enabled_focus_mode = 2
 shortcut = null
 text = "Cancel"
 flat = false
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="EconomyButton" type="Button" parent="CanvasLayer"]
 
@@ -182,9 +183,9 @@ margin/bottom = 20.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-icon = ExtResource( 8 )
+icon = ExtResource( 9 )
 flat = false
-script/script = ExtResource( 9 )
+script/script = ExtResource( 10 )
 
 [node name="Pop" type="Label" parent="CanvasLayer/EconomyButton"]
 

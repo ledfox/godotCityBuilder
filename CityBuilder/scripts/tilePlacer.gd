@@ -1,7 +1,8 @@
 extends TileMap
 
-const Building = preload("res://scripts/buildings/building.gd") # Relative path
+#const Building = preload("res://scripts/buildings/building.gd") # Relative path
 onready var buildOptions = get_tree().get_root().get_node("Main/CanvasLayer/Build Button/Build Window/Build Options")
+onready var buildCanvas = get_tree().get_root().get_node("Main/CanvasLayer")
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
@@ -94,10 +95,10 @@ func get_snapped_mouse_pos():
 func _input(event):
 	var selected = buildOptions.get_selected_name()
 	if selected != null and hover["object"] == null: # event.is_action_pressed("mouse_act_right"):
-		var held_building = Building.new()
-		held_building.init(selected)
-		get_viewport().add_child(held_building)
-		if held_building.can_afford_to_build():
+		var held_building = buildCanvas.get_new_building(selected)
+		if held_building == null:
+			buildOptions.clear_selection()
+		else:
 			held_building.set_pos(get_snapped_mouse_pos())
 			held_building.set_opacity(0.5)
 			
@@ -105,10 +106,6 @@ func _input(event):
 			get_tile_at(get_snapped_mouse_pos())
 			selector.set_pos(get_snapped_mouse_pos())
 			selector.show()
-		else:
-			print("You don't have the resources to build " + held_building.conf["name"])
-			print(held_building.conf["resource_req"])
-			buildOptions.clear_selection()
 	
 	if hover["object"] != null:
 		hover["object"].set_pos(get_snapped_mouse_pos())

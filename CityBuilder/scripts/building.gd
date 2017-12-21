@@ -1,7 +1,7 @@
 extends Sprite
 
 var is_road_adj = false
-#onready var economy = get_tree().get_root().get_node("Main/CanvasLayer/EconomyButton")
+onready var economy = get_tree().get_root().get_node("Main/CanvasLayer/EconomyButton")
 #var name
 #var build_cost = 10
 

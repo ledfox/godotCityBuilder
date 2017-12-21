@@ -4,16 +4,17 @@ extends OptionButton
 # var a = 2
 # var b = "textvar"
 var conf_file = ConfigFile.new()
-var err = conf_file.load("res://resources/buildingVars.cfg")
+onready var err = conf_file.load("res://resources/buildingVars.cfg")
 
 var accepted = false
+var nameToBuildingId = {}
 
-func config_to_dict(name):
+func config_to_dict(section):
 	var conf = {}
-	for key in conf_file.get_section_keys(name):
-		conf[key] = conf_file.get_value(name, key)
-	conf["name"] = name
+	for key in conf_file.get_section_keys(section):
+		conf[key] = conf_file.get_value(section, key)
 	conf["texture"] = load(conf["image_file"])
+	nameToBuildingId[conf["name"]] = section
 	return conf
 
 func load_all_conf():
@@ -35,7 +36,7 @@ func my_sort(a_list):
 
 func get_selected_name():
 	if accepted:
-		return get_item_text(get_selected ())
+		return nameToBuildingId[get_item_text(get_selected ())]
 	else:
 		return null
 
@@ -45,6 +46,7 @@ func clear_selection():
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
+	print("buildMenu")
 	for item in load_all_conf():
 		add_icon_item(item["texture"], item["name"], item["menu_order"])
 	set_process(true)
