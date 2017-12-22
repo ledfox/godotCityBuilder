@@ -8,13 +8,12 @@ onready var buildCanvas = get_tree().get_root().get_node("Main/CanvasLayer")
 # var b = "textvar"
 
 var grid = {}
+var held_building = null;
 var map_edges = {"x":{"max":0, "min":0}, "y":{"max":0, "min":0}}
 var color = Color(.5,0,.5)
 var line = 3
 var halfTileSize = Vector2(16, 16)
 var tileset = load("res://resources/land_tiles.tres")
-
-var hover = {"object":null, "highlight":null}
 
 var outOfTheWay = Vector2(-1000, 1000)
 
@@ -28,9 +27,6 @@ func set_up_highlights():
 		square.set_pos(outOfTheWay)
 		square.hide()
 		highlights[each] = square
-	
-	
-
 
 func get_tile_at(pos):
 	if grid.has(pos):
@@ -38,6 +34,12 @@ func get_tile_at(pos):
 	else:
 		return ""
 	 
+func get_tiles_at(poses):
+	var a_list = []
+	for pos in poses:
+		a_list.append(get_tile_at(pos))
+	return a_list
+	
 func find_edges():
 	map_edges["x"]["min"] = 0
 	map_edges["y"]["min"] = 0
@@ -52,7 +54,6 @@ func find_edges():
 	map_edges["x"]["max"] = maxVector.x
 	map_edges["y"]["max"] = maxVector.y
 	get_node("MainCamera").set("map_edges", map_edges) 
-	print("map dimensions: ", map_edges)
 
 func initialize_grid():
 	#get used cells into an array (not real world pos)
@@ -67,6 +68,12 @@ func add_build_object_at(pos, object):
 
 func is_unbuilt(pos):
 	return grid[pos]["build"] == null
+
+func are_unbilt(pos_list):
+	for pos in pos_list:
+		if not is_unbuilt(pos):
+			return false 
+	return true
 
 func get_tile_texture(name):
 	var index = tileset.find_tile_by_name(name)
@@ -88,53 +95,55 @@ func _process(delta):
 func snap_to_tile(pos):
 	return map_to_world(world_to_map(pos)) + halfTileSize #half a tile size
 
+func snap_to_tiles(pos_list):
+	var a_list = []
+	for pos in pos_list:
+		a_list.append(snap_to_tile(pos))
+	return a_list
+
 func get_snapped_mouse_pos():
 	return snap_to_tile(get_global_mouse_pos())
+	
+func can_build(obj):
+	var corners = snap_to_tiles(obj.get_corners());
+	return obj.can_build_on(get_tiles_at(corners)) and are_unbilt(corners)
 
 
 func _input(event):
 	var selected = buildOptions.get_selected_name()
-	if selected != null and hover["object"] == null: # event.is_action_pressed("mouse_act_right"):
-		var held_building = buildCanvas.get_new_building(selected)
+	if selected != null and held_building == null: # event.is_action_pressed("mouse_act_right"):
+		held_building = buildCanvas.get_new_building(selected)
 		if held_building == null:
 			buildOptions.clear_selection()
 		else:
 			held_building.custom_set_pos(get_snapped_mouse_pos())
 			held_building.set_opacity(0.5)
-			
-			hover["object"] = held_building
-			get_tile_at(get_snapped_mouse_pos())
-			selector.set_pos(get_snapped_mouse_pos())
-		
-			selector.custom_set_scale(hover["object"].conf["scale"])
-			selector.show()
+			held_building.attatch_selector(selector)
 	
-	if hover["object"] != null:
-		hover["object"].custom_set_pos(get_snapped_mouse_pos())
-		selector.set_pos(get_snapped_mouse_pos())
-		selector.be_green(
-			hover["object"].can_build_on(
-			get_tile_at(get_snapped_mouse_pos()))
-			and 
-			is_unbuilt(get_snapped_mouse_pos())
-		)
+	if held_building != null:
+		held_building.custom_set_pos(get_snapped_mouse_pos())
+		selector.be_green(can_build(held_building))
 		
-	if hover["object"] != null and event.is_action_pressed("mouse_act_left"):
-		if hover["object"].can_build_on(get_tile_at(get_snapped_mouse_pos())) and is_unbuilt(get_snapped_mouse_pos()):
-			hover["object"].build()
-			add_build_object_at(get_snapped_mouse_pos(), hover["object"])
+	if held_building != null and event.is_action_pressed("mouse_act_left"):
+		held_building.dettatch_selector()
+		
+		if can_build(held_building):
+			held_building.build()
+			add_build_object_at(get_snapped_mouse_pos(), held_building)
 			
 		else:
-			hover["object"].queue_free() #destory sprite
-		hover["object"] = null
-		selector.hide()
+			held_building.queue_free() #destory sprite
+		
+		held_building = null
+		
 		buildOptions.clear_selection()
 	
 	if event.is_action_pressed("mouse_act_right"):
-		if hover["object"] != null:
-			hover["object"].hide()
-		hover["object"] = null
-		selector.hide()
+		held_building.dettatch_selector()
+		if held_building != null:
+			held_building.hide()
+		held_building = null
+		
 		buildOptions.clear_selection()
 	
 	
