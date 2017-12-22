@@ -4,6 +4,8 @@ extends Sprite
 # var a = 2
 # var b = "textvar"
 
+var tile_size = 32
+
 var textures = {
 	"green": load("res://resources/green.png"),
 	"red": load("res://resources/red.png")
@@ -17,6 +19,9 @@ func be_green(should_green):
 		set_color("green")
 	else:
 		set_color("red")
+
+func custom_set_scale(vect):
+	set_scale(Vector2(vect.x/tile_size, vect.y/tile_size))
 
 func _ready():
 	# Called every time the node is added to the scene.

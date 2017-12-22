@@ -8,6 +8,8 @@ onready var economy = get_tree().get_root().get_node("Main/CanvasLayer/EconomyBu
 #var conf_file = ConfigFile.new()
 #onready var err = conf_file.load("res://resources/buildingVars.cfg")
 var conf = {}
+var tile_size = 32
+var pos_offset = null
 
 #func set_conf(buildId):
 #	print(err)
@@ -27,7 +29,17 @@ func can_afford_to_build():
 		if eco[key] < conf["resource_req"][key]:
 			return false
 	return true
+	
+func get_pos_offset():
+	if pos_offset == null:
+		var x_offset = (conf["size"]["x"] - tile_size)/2 ;
+		var y_offset = (conf["size"]["y"] - tile_size)/2 ;
+		pos_offset = Vector2(x_offset, y_offset)
+	return pos_offset;
 
+func custom_set_pos(pos):
+	set_pos(pos - get_pos_offset())
+	
 func init(start_conf):
 	conf = start_conf
 	set_texture(conf["texture"])

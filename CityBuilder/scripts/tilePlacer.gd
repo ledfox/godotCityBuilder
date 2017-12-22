@@ -99,16 +99,18 @@ func _input(event):
 		if held_building == null:
 			buildOptions.clear_selection()
 		else:
-			held_building.set_pos(get_snapped_mouse_pos())
+			held_building.custom_set_pos(get_snapped_mouse_pos())
 			held_building.set_opacity(0.5)
 			
 			hover["object"] = held_building
 			get_tile_at(get_snapped_mouse_pos())
 			selector.set_pos(get_snapped_mouse_pos())
+		
+			selector.custom_set_scale(hover["object"].conf["scale"])
 			selector.show()
 	
 	if hover["object"] != null:
-		hover["object"].set_pos(get_snapped_mouse_pos())
+		hover["object"].custom_set_pos(get_snapped_mouse_pos())
 		selector.set_pos(get_snapped_mouse_pos())
 		selector.be_green(
 			hover["object"].can_build_on(

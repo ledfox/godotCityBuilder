@@ -17,6 +17,7 @@ func get_conf(buildId):
 	print(buildId)
 	print(conf)
 	conf["texture"] = load(conf["image_file"])
+	conf["scale"] = Vector2(conf["size"]["x"], conf["size"]["y"])
 	return conf
 
 func get_new_building(buildId):
