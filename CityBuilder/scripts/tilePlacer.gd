@@ -63,8 +63,12 @@ func initialize_grid():
 		var global_pos = map_to_world(pos) + halfTileSize
 		grid[global_pos] = {"base": tile_name, "build": null}
 
-func add_build_object_at(pos, object):
+func add_build_object_at(object, pos):
 	grid[pos]["build"] = object
+	
+func add_build_object_ats(object, pos_list):
+	for pos in pos_list:
+		grid[pos]["build"] = object                       
 
 func is_unbuilt(pos):
 	return grid[pos]["build"] == null
@@ -129,7 +133,7 @@ func _input(event):
 		
 		if can_build(held_building):
 			held_building.build()
-			add_build_object_at(get_snapped_mouse_pos(), held_building)
+			add_build_object_ats(held_building, snap_to_tiles(held_building.get_corners()))
 			
 		else:
 			held_building.queue_free() #destory sprite
