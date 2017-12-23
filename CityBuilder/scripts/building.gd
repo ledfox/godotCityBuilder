@@ -10,7 +10,10 @@ onready var economy = get_tree().get_root().get_node("Main/CanvasLayer/EconomyBu
 var conf = {}
 var tile_size = 32
 var pos_offset = null
+var is_built = false
 var my_selector = null
+var requiredBuildTiles = []
+var workers = [] #list of persons employed at this location
 
 #func set_conf(buildId):
 #	print(err)
@@ -21,10 +24,22 @@ var my_selector = null
 #	print(conf)
 #	conf["texture"] = load(conf["image_file"])
 
+func do_work():
+	var count = 0
+	for each in workers:
+		count = count + 1
+	print(conf["name"], " did ", count, " work.")
+	economy.add_value("money", 1)
+
 func can_build_on(tile_names):
 	for name in tile_names:
 		if not (name in conf["buildable_tiles"]):
 			return false
+
+	for required in requiredBuildTiles:
+		if not (required in tile_names):
+			return false
+
 	return true
 
 
@@ -47,6 +62,18 @@ func can_afford_to_build():
 		if eco[key] < conf["resource_req"][key]:
 			return false
 	return true
+
+func process_buildable_tiles():
+	var updated_buildable_tiles = conf["buildable_tiles"]
+	for tile in conf["buildable_tiles"]:
+		if tile.ends_with("Required"):
+			updated_buildable_tiles.erase(tile)
+			var base_name = tile.replace("Required", "")
+			updated_buildable_tiles.append(base_name)
+			requiredBuildTiles.append(base_name)
+
+	conf["buildable_tiles"] = updated_buildable_tiles
+		
 	
 func get_pos_offset():
 	if pos_offset == null:
@@ -65,6 +92,7 @@ func init(start_conf):
 	set_texture(conf["texture"])
 	if "offset" in conf.keys():
 		set_offset(Vector2(conf["offset"]["x"], conf["offset"]["y"]))
+	process_buildable_tiles()
 
 func attatch_selector(sel):
 	my_selector = sel
@@ -76,19 +104,30 @@ func dettatch_selector():
 		my_selector.hide()
 		my_selector = null
 	
+func kill():
+	dettatch_selector()
+	hide()
+	queue_free()
+		
 func build():
 	set_opacity(1)
+	dettatch_selector()
 	for key in conf["produces"]:
 		economy.add_value(key, conf["produces"][key])
 	economy.add_value("money", -conf["build_cost"])
+	is_built = true
 	
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	set_centered(true)
 	set_process(true)
+	var timer = get_tree().get_root().get_node("Main/Timer")
+	timer.connect("timeout", self, "on_turn")
 
 func _process(delta):
 	pass
 	
+func on_turn():
+	do_work()
 

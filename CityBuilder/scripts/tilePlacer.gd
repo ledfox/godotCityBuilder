@@ -129,24 +129,19 @@ func _input(event):
 		selector.be_green(can_build(held_building))
 		
 	if held_building != null and event.is_action_pressed("mouse_act_left"):
-		held_building.dettatch_selector()
-		
 		if can_build(held_building):
 			held_building.build()
 			add_build_object_ats(held_building, snap_to_tiles(held_building.get_corners()))
-			
 		else:
-			held_building.queue_free() #destory sprite
+			held_building.kill() #destory sprite
 		
 		held_building = null
-		
 		buildOptions.clear_selection()
 	
 	if event.is_action_pressed("mouse_act_right"):
-		held_building.dettatch_selector()
 		if held_building != null:
-			held_building.hide()
-		held_building = null
+			held_building.kill()
+			held_building = null
 		
 		buildOptions.clear_selection()
 	

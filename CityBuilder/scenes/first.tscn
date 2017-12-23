@@ -72,6 +72,7 @@ script/script = ExtResource( 6 )
 
 [node name="Build Button" type="Button" parent="CanvasLayer"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -172,6 +173,7 @@ script/script = ExtResource( 7 )
 
 [node name="EconomyButton" type="Button" parent="CanvasLayer"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -282,6 +284,13 @@ align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
 
 [connection signal="pressed" from="CanvasLayer/Build Button" to="CanvasLayer/Build Button" method="_on_Build_Button_pressed"]
 
