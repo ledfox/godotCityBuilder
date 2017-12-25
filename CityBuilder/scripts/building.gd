@@ -13,7 +13,7 @@ var pos_offset = null
 var is_built = false
 var my_selector = null
 var requiredBuildTiles = []
-var workers = [] #list of persons employed at this location
+
 
 #func set_conf(buildId):
 #	print(err)
@@ -24,12 +24,6 @@ var workers = [] #list of persons employed at this location
 #	print(conf)
 #	conf["texture"] = load(conf["image_file"])
 
-func do_work():
-	var count = 0
-	for each in workers:
-		count = count + 1
-	print(conf["name"], " did ", count, " work.")
-	economy.add_value("money", 1)
 
 func can_build_on(tile_names):
 	for name in tile_names:
@@ -129,5 +123,5 @@ func _process(delta):
 	pass
 	
 func on_turn():
-	do_work()
+	pass
 

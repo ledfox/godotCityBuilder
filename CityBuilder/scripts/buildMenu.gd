@@ -27,7 +27,7 @@ func my_sort(a_list):
 	var len = a_list.size()
 	var sorted_list = []
 	var count = 0
-	while count <= len:
+	while count <= len + 10:
 		for each in a_list:
 			if each["menu_order"] == count:
 				sorted_list.append(each)

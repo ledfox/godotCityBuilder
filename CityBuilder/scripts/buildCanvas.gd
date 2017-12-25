@@ -4,7 +4,9 @@ extends CanvasLayer
 # var a = 2
 # var b = "textvar"
 #onready var economy = get_child("EconomyButton") #get_tree().get_root().get_node("Main/CanvasLayer/EconomyButton")
-const Building = preload("res://scripts/building.gd") # Relative path
+const House = preload("res://scripts/housing.gd") # Relative path
+const Road = preload("res://scripts/road.gd") # Relative path
+const Industry = preload("res://scripts/industry.gd") # Relative path
 var conf_file = ConfigFile.new()
 onready var err = conf_file.load("res://resources/buildingVars.cfg")
 
@@ -21,7 +23,15 @@ func get_conf(buildId):
 	return conf
 
 func get_new_building(buildId):
-	var new_building =  Building.new()
+	var new_building
+	var conf = get_conf(buildId)
+	if conf["category"] == "road":
+		new_building =  Road.new()
+	elif conf["category"] == "housing":
+		new_building =  House.new()
+	else:
+		new_building =  Industry.new()
+		
 	new_building.init(get_conf(buildId))
 	get_viewport().add_child(new_building)
 	if new_building.can_afford_to_build():

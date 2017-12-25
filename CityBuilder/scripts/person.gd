@@ -5,9 +5,14 @@ extends Sprite
 # var b = "textvar"
 var home
 var religion
+var religions = ["P", "S"]
 
-func _init(religion, home):
-	religion = religion
+func pick_religion():
+	randomize()
+	return religions[randi()%2]
+	
+func _init(home):
+	religion = pick_religion()
 	home = home
 	
 func _ready():
